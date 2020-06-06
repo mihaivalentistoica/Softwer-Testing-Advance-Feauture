@@ -1,4 +1,4 @@
-from locust import HttpLocust, TaskSet, task
+from locust import HttpUser, TaskSet, task
 
 
 class TestEndpoints(TaskSet):
@@ -14,6 +14,13 @@ class TestEndpoints(TaskSet):
     def test_form(self):
         self.client.post("/form", data={"user": "random"})
 
+    @task
+    def test_admin(self):
+        self.client.get("/admin")
 
-class MyLocust(HttpLocust):
-    task_set = TestEndpoints
+    def wait_time(self):
+        return 1
+
+
+class MyLocust(HttpUser):
+    tasks = [TestEndpoints]

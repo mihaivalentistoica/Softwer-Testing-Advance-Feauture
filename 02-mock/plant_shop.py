@@ -38,8 +38,8 @@ class Order:
 
 
 class PlantShop:
-    def __init__(self):
-        self.__db = DB()
+    def __init__(self, db):
+        self.__db = db()
         self.__validate_db()
 
     def __validate_db(self):
